@@ -6,7 +6,7 @@ export const login = ({ username, password }) => {
     password
   }
   return axios.request({
-    url: '/user/login',
+    url: '/api/user/login',
     data: {
       username: data.username,
       password: md5(data.password)
@@ -17,7 +17,7 @@ export const login = ({ username, password }) => {
 
 export const getUserInfo = (userId) => {
   return axios.request({
-    url: '/user/info',
+    url: '/api/user/info',
     params: {
       userId
     },
@@ -37,7 +37,7 @@ export const getUserMenu = (userId) => {
 
 export const logout = () => {
   return axios.request({
-    url: '/user/logout',
+    url: '/api/user/logout',
     method: 'get'
   })
 }

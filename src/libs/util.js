@@ -31,7 +31,7 @@ const showThisMenuEle = (item, access) => {
  */
 export const getMenuByRouter = (list, access) => {
   let res = []
-  let arr = JSON.parse(localStorage.userMenuList)
+  let arr = JSON.parse(localStorage.userMenuList) //获取用户菜单列表权限
   forEach(list, item => {
     if (item.meta && !item.meta.hideInMenu && arr.includes(item.meta.title)) {
       let obj = {

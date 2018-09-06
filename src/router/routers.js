@@ -46,7 +46,7 @@ export default [
         name: 'count_to',
         meta: {
           hideInMenu: false,
-          icon: 'arrow-graph-up-right',
+          icon: '',
           title: '需求提交'
         },
         component: () => import('@/view/components/count-to/count-to.vue')
@@ -56,7 +56,7 @@ export default [
         name: 'list',
         meta: {
           hideInMenu: false,
-          icon: 'arrow-graph-up-right',
+          icon: '',
           title: '需求列表'
         },
         component: () => import('@/view/components/list/list.vue')
@@ -78,7 +78,7 @@ export default [
         name: 'takeout',
         meta: {
           hideInMenu: false,
-          icon: 'arrow-graph-up-right',
+          icon: '',
           title: '外卖'
         },
         component: parentView,
@@ -88,7 +88,7 @@ export default [
             name: 'takeoutsearch',
             meta: {
               hideInMenu: false,
-              icon: 'arrow-graph-up-right',
+              icon: '',
               title: '外卖订单自助查询工具'
             },
             component: () => import('@/view/multilevel/takeout/search.vue')
@@ -98,7 +98,7 @@ export default [
             name: 'takeoutcube',
             meta: {
               hideInMenu: false,
-              icon: 'arrow-graph-up-right',
+              icon: '',
               title: '外卖订单自助查询工具'
             },
             component: () => import('@/view/multilevel/takeout/cube.vue')
@@ -108,7 +108,7 @@ export default [
             name: 'takeoutservice',
             meta: {
               hideInMenu: false,
-              icon: 'arrow-graph-up-right',
+              icon: '',
               title: '外卖订单自助查询工具'
             },
             component: () => import('@/view/multilevel/takeout/service.vue')
@@ -118,7 +118,7 @@ export default [
             name: 'family_cube',
             meta: {
               hideInMenu: false,
-              icon: 'arrow-graph-up-right',
+              icon: '',
               title: '外卖订单自助查询工具'
             },
             component: () => import('@/view/multilevel/takeout/family_cube.vue')
@@ -130,7 +130,7 @@ export default [
         name: 'pay',
         meta: {
           hideInMenu: false,
-          icon: 'arrow-graph-up-right',
+          icon: '',
           title: '支付'
         },
         component: parentView,
@@ -140,7 +140,7 @@ export default [
             name: 'payboard',
             meta: {
               hideInMenu: false,
-              icon: 'arrow-graph-up-right',
+              icon: '',
               title: '支付大盘'
             },
             component: () => import('@/view/multilevel/pay/board.vue')
@@ -150,7 +150,7 @@ export default [
             name: 'paycube',
             meta: {
               hideInMenu: false,
-              icon: 'arrow-graph-up-right',
+              icon: '',
               title: '支付自助查询工具'
             },
             component: () => import('@/view/multilevel/pay/cube.vue')
@@ -162,7 +162,7 @@ export default [
         name: 'coupon',
         meta: {
           hideInMenu: false,
-          icon: 'arrow-graph-up-right',
+          icon: '',
           title: '券码营销'
         },
         component: parentView,
@@ -172,7 +172,7 @@ export default [
             name: 'couponboard',
             meta: {
               hideInMenu: false,
-              icon: 'arrow-graph-up-right',
+              icon: '',
               title: '券码核销明细报表'
             },
             component: () => import('@/view/multilevel/coupon/board.vue')
@@ -182,7 +182,7 @@ export default [
             name: 'couponactive',
             meta: {
               hideInMenu: false,
-              icon: 'arrow-graph-up-right',
+              icon: '',
               title: '券码活动运营报表'
             },
             component: () => import('@/view/multilevel/coupon/active.vue')
@@ -194,7 +194,7 @@ export default [
         name: 'task',
         meta: {
           hideInMenu: false,
-          icon: 'arrow-graph-up-right',
+          icon: '',
           title: '报表任务'
         },
         component: () => import('@/view/multilevel/task.vue')
@@ -204,7 +204,7 @@ export default [
         name: 'download',
         meta: {
           hideInMenu: false,
-          icon: 'arrow-graph-up-right',
+          icon: '',
           title: '报表下载'
         },
         component: () => import('@/view/multilevel/download.vue')
@@ -214,7 +214,7 @@ export default [
         name: 'detail',
         meta: {
           hideInMenu: false,
-          icon: 'arrow-graph-up-right',
+          icon: '',
           title: '报表查看明细'
         },
         component: () => import('@/view/multilevel/detail.vue')
@@ -228,7 +228,7 @@ export default [
     meta: {
       hideInMenu: false,
       access: ['admin'],
-      icon: 'arrow-graph-up-right',
+      icon: 'md-contacts',
       title: '权限管理'
     }
   },
