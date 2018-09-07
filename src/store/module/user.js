@@ -8,7 +8,6 @@ export default {
     avatorImgPath: '',
     token: getToken(),
     access: '',
-    menuList: '',
     USERINFO: localStorage.userInfo !== undefined ? JSON.parse(localStorage.userInfo) : ''
   },
   mutations: {
@@ -18,7 +17,7 @@ export default {
     setUserId (state, id) {
       state.userId = id
     },
-    setusername (state, name) {
+    setUserName (state, name) {
       state.username = name
     },
     setAccess (state, access) {
@@ -27,9 +26,6 @@ export default {
     setToken (state, token) {
       state.token = token
       setToken(token)
-    },
-    setMenuList (state, data) {
-      state.menuList = data
     },
     setUserInfo (state, data) {
       state['USERINFO'] = data
@@ -64,10 +60,10 @@ export default {
     // 退出登录
     handleLogOut ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        logout().then((res) => {
+        logout(state.token).then(() => {
           commit('setToken', '')
           commit('setAccess', [])
-          resolve(res)
+          resolve()
         }).catch(err => {
           reject(err)
         })
@@ -82,7 +78,7 @@ export default {
             let access = []
             access.push(data.userName)
             data.access = access
-            commit('setusername', data.userName)
+            commit('setUserName', data.userName)
             commit('setAccess', access)
             resolve(data)
           }).catch(err => {
@@ -93,7 +89,7 @@ export default {
           let access = []
           access.push(data.userName)
           data.access = access
-          commit('setusername', data.userName)
+          commit('setUserName', data.userName)
           commit('setAccess', access)
           resolve(data)
         }
@@ -123,7 +119,6 @@ export default {
               }
             }
             localStorage.menuList = JSON.stringify(data)
-            commit('setMenuList', data)
             resolve(arr)
           }).catch(err => {
             reject(err)
@@ -147,7 +142,6 @@ export default {
               }
             }
           }
-          commit('setMenuList', data)
           resolve(arr)
         }
       })

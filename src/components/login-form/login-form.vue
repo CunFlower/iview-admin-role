@@ -1,16 +1,16 @@
 <template>
-  <Form ref="loginForm" :model="form" :rules="rules">
+  <Form ref="loginForm" :model="form" :rules="rules" @keydown.enter.native="handleSubmit">
     <FormItem prop="username">
       <Input v-model="form.username" placeholder="请输入用户名">
         <span slot="prepend">
-          <Icon :size="16" type="person"></Icon>
+          <Icon :size="16" type="ios-person"></Icon>
         </span>
       </Input>
     </FormItem>
     <FormItem prop="password">
       <Input type="password" v-model="form.password" placeholder="请输入密码">
         <span slot="prepend">
-          <Icon :size="14" type="locked"></Icon>
+          <Icon :size="14" type="md-lock"></Icon>
         </span>
       </Input>
     </FormItem>
@@ -21,9 +21,9 @@
 </template>
 <script>
 export default {
-  name: 'loginForm',
+  name: 'LoginForm',
   props: {
-    usernameRules: {
+    userNameRules: {
       type: Array,
       default: () => {
         return [
@@ -43,15 +43,15 @@ export default {
   data () {
     return {
       form: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       }
     }
   },
   computed: {
     rules () {
       return {
-        username: this.usernameRules,
+        username: this.userNameRules,
         password: this.passwordRules
       }
     }

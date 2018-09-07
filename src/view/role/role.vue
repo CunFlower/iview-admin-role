@@ -1,13 +1,8 @@
 <template>
-  <div>role</div>
+  <div>level-1</div>
 </template>
-
 <script>
 export default {
-  name: 'role'
+  name: 'level_1'
 }
 </script>
-
-<style>
-
-</style>

@@ -1,13 +1,8 @@
 <template>
-  <div>count to</div>
+  <div>level-1</div>
 </template>
-
 <script>
 export default {
-  name: 'countTo'
+  name: 'level_1'
 }
 </script>
-
-<style>
-
-</style>

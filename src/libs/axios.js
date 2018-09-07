@@ -44,12 +44,14 @@ class httpRequest {
       }
       if (!(data instanceof Blob)) {
         if (data.code !== 200) {
-          // 后端服务在个别情况下回报201，待确认
-          if (data.code === 103) {
+          if (data.code === 109 || data.code === 108) {
+            Message.error(data.message)
             Cookies.remove(TOKEN_KEY)
-            window.location.href = '/#/login'
-            Message.error('未登录，或登录失效，请登录')
-          } else {
+            localStorage.clear()
+            setTimeout(function () {
+              window.location.href = '/#/login'
+            }, 2000)
+          } else if (data.code !== 200 && data.code !== 109 && data.code !== 108 && data.code !== 107) {
             if (data.message) Message.error(data.message)
           }
           return false

@@ -1,74 +1,85 @@
 import Main from '@/view/main'
 import parentView from '@/components/parent-view'
 
+/**
+ * iview-admin中meta除了原生参数外可配置的参数:
+ * meta: {
+ *  hideInMenu: (false) 设为true后在左侧菜单不会显示该页面选项
+ *  notCache: (false) 设为true后页面不会缓存
+ *  access: (null) 可访问该页面的权限数组，当前路由设置的权限会影响子路由
+ *  icon: (-) 该页面在左侧菜单、面包屑和标签导航处显示的图标，如果是自定义图标，需要在图标名称前加下划线'_'
+ * }
+ */
+
 export default [
   {
     path: '/login',
     name: 'login',
     meta: {
       title: 'Login - 登录',
-      hideInMenu: true
+      hideInMenu: true,
+      icon: ''
     },
     component: () => import('@/view/login/login.vue')
   },
   {
     path: '/',
-    name: 'index',
+    name: '_home',
     redirect: '/home',
     component: Main,
     meta: {
-      hideInMenu: true
+      hideInMenu: true,
+      notCache: true,
+      icon: ''
     },
     children: [
       {
-        path: 'home',
+        path: '/home',
         name: 'home',
         meta: {
           hideInMenu: true,
-          title: '首页'
+          title: '首页',
+          notCache: true,
+          icon: ''
         },
         component: () => import('@/view/single-page/home')
       }
     ]
   },
   {
-    path: '/components',
-    name: 'components',
+    path: '/demand',
+    name: 'demand',
     meta: {
-      hideInMenu: false,
-      icon: 'social-buffer',
+      icon: 'logo-buffer',
       title: '数据需求管理'
     },
     component: Main,
     children: [
       {
-        path: 'count_to',
-        name: 'count_to',
+        path: 'demand_index',
+        name: 'demand_index',
         meta: {
-          hideInMenu: false,
-          icon: '',
-          title: '需求提交'
+          title: '需求提交',
+          icon: ''
         },
-        component: () => import('@/view/components/count-to/count-to.vue')
+        component: () => import('@/view/demand/demand_index.vue')
       },
       {
-        path: 'list',
-        name: 'list',
+        path: 'demand_manage',
+        name: 'demand_manage',
         meta: {
-          hideInMenu: false,
-          icon: '',
-          title: '需求列表'
+          title: '需求列表',
+          icon: ''
         },
-        component: () => import('@/view/components/list/list.vue')
+        component: () => import('@/view/demand/demand_manage.vue')
       }
     ]
   },
   {
-    path: '/multilevel',
-    name: 'multilevel',
+    path: '/report',
+    name: 'report',
     meta: {
-      hideInMenu: false,
-      icon: 'arrow-graph-up-right',
+      icon: 'ios-stats',
       title: '报表模块'
     },
     component: Main,
@@ -77,83 +88,76 @@ export default [
         path: 'takeout',
         name: 'takeout',
         meta: {
-          hideInMenu: false,
-          icon: '',
-          title: '外卖'
+          showAlways: true,
+          title: '外卖',
+          icon: ''
         },
         component: parentView,
         children: [
           {
-            path: 'takeoutsearch',
-            name: 'takeoutsearch',
+            path: 'takeout_search',
+            name: 'takeout_search',
             meta: {
-              hideInMenu: false,
-              icon: '',
-              title: '外卖订单自助查询工具'
+              title: '外卖订单自助查询工具',
+              icon: ''
             },
-            component: () => import('@/view/multilevel/takeout/search.vue')
+            component: () => import('@/view/report/takeout/search.vue')
           },
           {
-            path: 'takeoutcube',
-            name: 'takeoutcube',
+            path: 'takeout_cube',
+            name: 'takeout_cube',
             meta: {
-              hideInMenu: false,
-              icon: '',
-              title: '外卖订单自助查询工具'
+              title: '外卖支付自助查询工具',
+              icon: ''
             },
-            component: () => import('@/view/multilevel/takeout/cube.vue')
+            component: () => import('@/view/report/takeout/cube.vue')
           },
           {
-            path: 'takeoutservice',
-            name: 'takeoutservice',
+            path: 'takeout_service',
+            name: 'takeout_service',
             meta: {
-              hideInMenu: false,
-              icon: '',
-              title: '外卖订单自助查询工具'
+              title: '外卖服务自助查询工具',
+              icon: ''
             },
-            component: () => import('@/view/multilevel/takeout/service.vue')
+            component: () => import('@/view/report/takeout/service.vue')
           },
           {
             path: 'family_cube',
             name: 'family_cube',
             meta: {
-              hideInMenu: false,
-              icon: '',
-              title: '外卖订单自助查询工具'
+              title: '全家快中台自助查询工具',
+              icon: ''
             },
-            component: () => import('@/view/multilevel/takeout/family_cube.vue')
+            component: () => import('@/view/report/takeout/family_cube.vue')
           }
         ]
       },
       {
-        path: 'pay',
-        name: 'pay',
+        path: 'cube',
+        name: 'cube',
         meta: {
-          hideInMenu: false,
-          icon: '',
-          title: '支付'
+          title: '支付',
+          icon: ''
         },
         component: parentView,
         children: [
           {
-            path: 'payboard',
-            name: 'payboard',
+            path: 'pay_board',
+            name: 'pay_board',
             meta: {
-              hideInMenu: false,
-              icon: '',
-              title: '支付大盘'
+              title: '支付大盘',
+              icon: ''
             },
-            component: () => import('@/view/multilevel/pay/board.vue')
+            component: () => import('@/view/report/pay/board.vue')
           },
           {
-            path: 'paycube',
-            name: 'paycube',
+            path: 'pay_cube',
+            name: 'pay_cube',
             meta: {
-              hideInMenu: false,
-              icon: '',
-              title: '支付自助查询工具'
+              title: '支付自助查询工具',
+              icon: ''
             },
-            component: () => import('@/view/multilevel/pay/cube.vue')
+            component: () => import('@/view/report/pay/cube.vue')
           }
         ]
       },
@@ -161,82 +165,87 @@ export default [
         path: 'coupon',
         name: 'coupon',
         meta: {
-          hideInMenu: false,
-          icon: '',
-          title: '券码营销'
+          title: '券码营销',
+          icon: ''
         },
         component: parentView,
         children: [
           {
-            path: 'couponboard',
-            name: 'couponboard',
+            path: 'coupon_board',
+            name: 'coupon_board',
             meta: {
-              hideInMenu: false,
-              icon: '',
-              title: '券码核销明细报表'
+              title: '券码核销明细报表',
+              icon: ''
             },
-            component: () => import('@/view/multilevel/coupon/board.vue')
+            component: () => import('@/view/report/coupon/board.vue')
           },
           {
-            path: 'couponactive',
-            name: 'couponactive',
+            path: 'coupon_active',
+            name: 'coupon_active',
             meta: {
-              hideInMenu: false,
-              icon: '',
-              title: '券码活动运营报表'
+              title: '券码活动运营报表',
+              icon: ''
             },
-            component: () => import('@/view/multilevel/coupon/active.vue')
+            component: () => import('@/view/report/coupon/active.vue')
           }
         ]
       },
       {
-        path: 'task',
-        name: 'task',
+        path: 'report_task',
+        name: 'report_task',
         meta: {
-          hideInMenu: false,
-          icon: '',
-          title: '报表任务'
+          title: '报表任务',
+          icon: ''
         },
-        component: () => import('@/view/multilevel/task.vue')
+        component: () => import('@/view/report/task.vue')
       },
       {
-        path: 'download',
-        name: 'download',
+        path: 'report_download',
+        name: 'report_download',
         meta: {
-          hideInMenu: false,
-          icon: '',
-          title: '报表下载'
+          title: '报表下载',
+          icon: ''
         },
-        component: () => import('@/view/multilevel/download.vue')
+        component: () => import('@/view/report/download.vue')
       },
       {
-        path: 'detail',
-        name: 'detail',
+        path: 'report_detail',
+        name: 'report_detail',
         meta: {
-          hideInMenu: false,
-          icon: '',
-          title: '报表查看明细'
+          title: '报表查看明细',
+          icon: ''
         },
-        component: () => import('@/view/multilevel/detail.vue')
+        component: () => import('@/view/report/detail.vue')
       }
     ]
   },
   {
     path: '/role',
     name: 'role',
-    component: Main,
     meta: {
-      hideInMenu: false,
-      access: ['admin'],
-      icon: 'md-contacts',
+      hide: true,
+      icon: '',
       title: '权限管理'
-    }
+    },
+    component: Main,
+    children: [
+      {
+        path: 'role_manage',
+        name: 'role_manage',
+        meta: {
+          icon: 'md-people',
+          title: '权限管理'
+        },
+        component: () => import('@/view/role/role.vue')
+      }
+    ]
   },
   {
     path: '/401',
     name: 'error_401',
     meta: {
-      hideInMenu: true
+      hideInMenu: true,
+      icon: ''
     },
     component: () => import('@/view/error-page/401.vue')
   },
@@ -244,7 +253,8 @@ export default [
     path: '/500',
     name: 'error_500',
     meta: {
-      hideInMenu: true
+      hideInMenu: true,
+      icon: ''
     },
     component: () => import('@/view/error-page/500.vue')
   },
@@ -252,7 +262,8 @@ export default [
     path: '*',
     name: 'error_404',
     meta: {
-      hideInMenu: true
+      hideInMenu: true,
+      icon: ''
     },
     component: () => import('@/view/error-page/404.vue')
   }

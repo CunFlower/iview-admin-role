@@ -1,7 +1,7 @@
 <template>
   <Layout style="height: 100%" class="main">
-    <Sider hide-trigger collapsible :width="210" :collapsed-width="64" v-model="collapsed">
-      <side-menu accordion :active-name="$route.name" :collapsed="collapsed" @on-select="turnToPage" :menu-list="menuList">
+    <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
+      <side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed" @on-select="turnToPage" :menu-list="menuList">
         <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
         <div class="logo-con">
           <img v-show="!collapsed" :src="maxLogo" key="max-logo" />
@@ -13,14 +13,15 @@
       <Header class="header-con">
         <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
           <user :user-avator="userAvator"/>
+          <fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>
         </header-bar>
       </Header>
-      <Content>
-        <Layout>
+      <Content class="main-content-con">
+        <Layout class="main-layout-con">
           <div class="tag-nav-wrapper">
             <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
           </div>
-          <Content>
+          <Content class="content-wrapper">
             <keep-alive :include="cacheList">
               <router-view/>
             </keep-alive>
@@ -31,10 +32,11 @@
   </Layout>
 </template>
 <script>
-import sideMenu from './components/side-menu'
-import headerBar from './components/header-bar'
-import tagsNav from './components/tags-nav'
-import user from './components/user'
+import SideMenu from './components/side-menu'
+import HeaderBar from './components/header-bar'
+import TagsNav from './components/tags-nav'
+import User from './components/user'
+import Fullscreen from './components/fullscreen'
 import { mapMutations, mapActions } from 'vuex'
 import { getNewTagList, getNextName } from '@/libs/util'
 import minLogo from '@/assets/images/logo-min.png'
@@ -43,16 +45,18 @@ import './main.less'
 export default {
   name: 'Main',
   components: {
-    sideMenu,
-    headerBar,
-    tagsNav,
-    user
+    SideMenu,
+    HeaderBar,
+    TagsNav,
+    Fullscreen,
+    User
   },
   data () {
     return {
       collapsed: false,
       minLogo,
-      maxLogo
+      maxLogo,
+      isFullscreen: false
     }
   },
   computed: {
@@ -66,22 +70,30 @@ export default {
       return this.$store.state.user.avatorImgPath
     },
     cacheList () {
-      return this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)) : []
+      return this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []
     },
     menuList () {
       return this.$store.getters.menuList
+    },
+    local () {
+      return this.$store.state.app.local
     }
   },
   methods: {
     ...mapMutations([
       'setBreadCrumb',
       'setTagNavList',
-      'addTag'
+      'addTag',
+      'setLocal'
     ]),
     ...mapActions([
       'handleLogin'
     ]),
     turnToPage (name) {
+      if (name.indexOf('isTurnByHref_') > -1) {
+        window.open(name.split('_')[1])
+        return
+      }
       this.$router.push({
         name: name
       })
@@ -92,8 +104,15 @@ export default {
     handleCloseTag (res, type, name) {
       const nextName = getNextName(this.tagNavList, name)
       this.setTagNavList(res)
-      if (type === 'all') this.turnToPage('home')
-      else if (this.$route.name === name) this.$router.push({ name: nextName })
+      let openName = ''
+      if (type === 'all') {
+        this.turnToPage('home')
+        openName = 'home'
+      } else if (this.$route.name === name) {
+        this.$router.push({ name: nextName })
+        openName = nextName
+      }
+      this.$refs.sideMenu.updateOpenName(openName)
     },
     handleClick (item) {
       this.turnToPage(item.name)
@@ -112,9 +131,6 @@ export default {
     this.setTagNavList()
     this.addTag(this.$store.state.app.homeRoute)
     this.setBreadCrumb(this.$route.matched)
-  },
-  deactivated () {
-    this.$destroy()
   }
 }
 </script>

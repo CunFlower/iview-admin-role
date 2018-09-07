@@ -1,16 +1,18 @@
 <template>
-  <div>home1</div>
+  <div></div>
 </template>
 
 <script>
 export default {
   name: 'home',
-  deactivated () {
-    this.$destroy()
+  components: {
+  },
+  data () {
+    return {
+    }
+  },
+  mounted () {
+    //
   }
 }
 </script>
-
-<style>
-
-</style>
