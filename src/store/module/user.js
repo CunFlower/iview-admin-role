@@ -1,4 +1,4 @@
-import { login, logout, getUserInfo, getUserMenu } from '@/api/user'
+import { login, logout, getUserInfo, getUserMenu, menuForms, userList } from '@/api/user'
 import { setToken, getToken } from '@/libs/util'
 
 export default {
@@ -144,6 +144,33 @@ export default {
           }
           resolve(arr)
         }
+      })
+    },
+    // 获取用户报表权限
+    menuForms ({ state, commit }) {
+      return new Promise((resolve, reject) => {
+        if (!localStorage.menuForms) {
+          menuForms().then(res => {
+            const data = res.data
+            localStorage.menuForms = JSON.stringify(data)
+            resolve(data)
+          }).catch(err => {
+            reject(err)
+          })
+        } else {
+          const data = JSON.parse(localStorage.menuForms)
+          resolve(data)
+        }
+      })
+    },
+    // 获取用户报表权限
+    userList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userList(params).then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
       })
     }
   },

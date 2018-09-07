@@ -41,3 +41,18 @@ export const logout = () => {
     method: 'get'
   })
 }
+
+export const menuForms = () => {
+  return axios.request({
+    url: '/menu/forms',
+    method: 'get'
+  })
+}
+
+export const userList = (params) => {
+  return axios.request({
+    url: '/api/user/list',
+    data: JSON.stringify(params),
+    method: 'post'
+  })
+}
