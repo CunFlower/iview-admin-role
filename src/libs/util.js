@@ -274,3 +274,53 @@ export const findNodeDownward = (ele, tag) => {
 export const showByAccess = (access, canViewAccess) => {
   return hasOneOf(canViewAccess, access)
 }
+
+/**
+ * @param {Array} list 权限菜单处理
+ * @returns {Array}
+ */
+export const menuTree = (list) => {
+  let res = []
+  forEach(list, item => {
+    res.push(item.name)
+    if (item.children) {
+      res = res.concat(menuTree(item.children))
+    }
+  })
+  return res
+}
+
+/**
+ * tree 数据转换
+ * @param  {Array} tree 待转换的 tree
+ * @param  {Object} map  键值对映射
+ * @return {Array}      转换后的 tree
+ */
+export const filterTree = (tree, ids) => {
+  const result = []
+  // 遍历 tree
+  tree.forEach((item) => {
+    if (!item.title) {
+      item.title = item.name
+    }
+    // 解构赋值
+    if (ids.includes(parseInt(item.id))) {
+      item.checked = true
+    } else {
+      item.checked = false
+    }
+    // 如果有子节点，递归
+    if (item.children) {
+      item.children = filterTree(item.children, ids)
+    }
+    if (item.name !== '权限管理') {
+      result.push({
+        title: item.title,
+        id: item.id,
+        children: item.children,
+        checked: item.checked
+      })
+    }
+  })
+  return result
+}

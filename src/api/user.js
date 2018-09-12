@@ -56,3 +56,55 @@ export const userList = (params) => {
     method: 'post'
   })
 }
+
+export const roleParterList = (userId) => {
+  return axios.request({
+    url: '/api/partner/list',
+    params: {
+      userId
+    },
+    method: 'get'
+  })
+}
+
+export const userUpdateBase = (params) => {
+  return axios.request({
+    url: '/api/user/updatebase',
+    data: JSON.stringify(params),
+    method: 'post'
+  })
+}
+
+export const userUpdateTeall = (params) => {
+  return axios.request({
+    url: '/api/user/updateall',
+    data: JSON.stringify(params),
+    method: 'post'
+  })
+}
+
+export const userCreate = (params) => {
+  return axios.request({
+    url: '/api/user/create',
+    data: JSON.stringify(params),
+    method: 'post'
+  })
+}
+
+export const roleMenuTreeIds = (userId) => {
+  return axios.request({
+    url: '/menu/treeIds',
+    params: {
+      userId
+    },
+    method: 'get'
+  })
+}
+
+export const userDelete = (userId) => {
+  return axios.request({
+    url: '/api/user/delete',
+    data: JSON.stringify({userId: userId}),
+    method: 'delete'
+  })
+}

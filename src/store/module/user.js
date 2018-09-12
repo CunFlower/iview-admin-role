@@ -1,5 +1,5 @@
-import { login, logout, getUserInfo, getUserMenu, menuForms, userList } from '@/api/user'
-import { setToken, getToken } from '@/libs/util'
+import { login, logout, getUserInfo, getUserMenu, menuForms, userList, roleParterList, userUpdateBase, userUpdateTeall, userCreate, roleMenuTreeIds, userDelete } from '@/api/user'
+import { setToken, getToken, menuTree } from '@/libs/util'
 
 export default {
   state: {
@@ -101,48 +101,14 @@ export default {
         if (!localStorage.menuList) {
           getUserMenu(state['USERINFO'].userId).then(res => {
             const data = res.data
-            let arr = []
-            let selects = res.data.children
-            for (let i = 0; i < selects.length; i++) {
-              if (selects[i].children.length > 0) {
-                arr.push(selects[i].name)
-                if (selects[i].hasChildren) {
-                  for (let j = 0; j < selects[i].children.length; j++) {
-                    arr.push(selects[i].children[j].name)
-                    if (selects[i].children[j].hasChildren) {
-                      for (let v = 0; v < selects[i].children[j].children.length; v++) {
-                        arr.push(selects[i].children[j].children[v].name)
-                      }
-                    }
-                  }
-                }
-              }
-            }
             localStorage.menuList = JSON.stringify(data)
-            resolve(arr)
+            resolve(menuTree(res.data.children))
           }).catch(err => {
             reject(err)
           })
         } else {
           const data = JSON.parse(localStorage.menuList)
-          let arr = []
-          let selects = data.children
-          for (let i = 0; i < selects.length; i++) {
-            if (selects[i].children.length > 0) {
-              arr.push(selects[i].name)
-              if (selects[i].hasChildren) {
-                for (let j = 0; j < selects[i].children.length; j++) {
-                  arr.push(selects[i].children[j].name)
-                  if (selects[i].children[j].hasChildren) {
-                    for (let v = 0; v < selects[i].children[j].children.length; v++) {
-                      arr.push(selects[i].children[j].children[v].name)
-                    }
-                  }
-                }
-              }
-            }
-          }
-          resolve(arr)
+          resolve(menuTree(data.children))
         }
       })
     },
@@ -167,6 +133,66 @@ export default {
     userList ({ commit }, params) {
       return new Promise((resolve, reject) => {
         userList(params).then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    // 获取商户权限列表
+    roleParterList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        roleParterList(params).then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    // 创建用户
+    userCreate ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userCreate(params).then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    // 删除用户
+    userDelete ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userDelete(params).then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    // 获取用户菜单权限
+    roleMenuTreeIds ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        roleMenuTreeIds(params).then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    // 编辑用户资料
+    userUpdateTeall ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userUpdateTeall(params).then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    // 重置密码
+    userUpdateBase ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userUpdateBase(params).then(res => {
           resolve(res)
         }).catch(err => {
           reject(err)
